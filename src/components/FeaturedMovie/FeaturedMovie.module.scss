@@ -1,0 +1,51 @@
+@import '@/styles/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
+
+  .title {
+    color: $primary;
+    font-weight: bold;
+    font-size: 7.6rem;
+    letter-spacing: 1.2rem;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 0.4rem;
+  }
+
+  .buttons-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 1rem 2rem 0;
+  }
+
+  &.desktop {
+    align-items: flex-start;
+
+    .title {
+      position: relative;
+      left: -4px;
+      font-size: 12rem;
+      text-align: left;
+      letter-spacing: 1.6rem;
+    }
+
+    .buttons-block {
+      flex-direction: row;
+      width: 50rem;
+      padding: 0;
+
+      & > :nth-child(n) {
+        flex: 1;
+      }
+    }
+  }
+}

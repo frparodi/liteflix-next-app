@@ -3,6 +3,7 @@ import useMedia from '@/hooks/useMedia';
 import { ADD_MOVIE } from '@/constants/strings';
 
 import AppLogo from '../AppLogo';
+import Button from '../UI/Button/Button';
 import IconText from '../UI/IconText';
 
 import styles from './Navbar.module.scss';
@@ -19,7 +20,9 @@ const Navbar = () => {
       <div className={styles['title-block']}>
         <AppLogo size={isDesktop ? 'large' : 'normal'} />
         {isDesktop && (
-          <IconText iconPath='plus.svg' text={ADD_MOVIE} width={14} />
+          <Button type='link'>
+            <IconText iconPath='plus.svg' text={ADD_MOVIE} width={14} />
+          </Button>
         )}
       </div>
       <div className={styles['buttons-block']}>

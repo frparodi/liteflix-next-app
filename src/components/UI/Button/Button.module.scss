@@ -1,0 +1,25 @@
+@import '@/styles/colors';
+
+.button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  padding: 2rem;
+  width: 100%;
+
+  &.primary {
+    background-color: $black;
+  }
+
+  &.secondary {
+    background-color: $black-50;
+    border: 1px solid $white-50;
+  }
+
+  &.link {
+    background-color: inherit;
+    padding: 0;
+  }
+}

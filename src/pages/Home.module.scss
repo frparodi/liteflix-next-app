@@ -1,4 +1,48 @@
 .container {
   display: flex;
   flex-direction: column;
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+
+    .featured-movie-wrapper {
+      padding: 50% 3.2rem 0;
+    }
+
+    .movies-list-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      gap: 2rem;
+
+      .movie {
+        padding-bottom: 44.44%;
+        border: 1px solid #ffffff80; // TODO: DELETE
+      }
+    }
+  }
+
+  &.desktop {
+    .main-content {
+      flex-direction: row;
+      padding: 0 10%;
+      gap: 12rem;
+
+      .featured-movie-wrapper {
+        flex: 1;
+        padding: 40vh 0 0;
+      }
+
+      .movies-list-wrapper {
+        width: 25rem;
+        padding: 0;
+
+        .movie {
+          padding-bottom: 66.666%;
+        }
+      }
+    }
+  }
 }

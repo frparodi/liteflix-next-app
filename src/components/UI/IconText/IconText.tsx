@@ -17,7 +17,7 @@ const IconText: FunctionComponent<IconTextProps> = ({
   height = width,
 }) => {
   return (
-    <button className={styles.button}>
+    <div className={styles.container}>
       <Image
         src={`/assets/${iconPath}`}
         alt={text || iconPath}
@@ -26,7 +26,7 @@ const IconText: FunctionComponent<IconTextProps> = ({
         priority
       />
       {text && <span className={styles.text}>{text}</span>}
-    </button>
+    </div>
   );
 };
 
