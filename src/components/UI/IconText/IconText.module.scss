@@ -1,0 +1,14 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+
+  .text {
+    position: relative;
+    top: 2px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.4rem;
+  }
+}
