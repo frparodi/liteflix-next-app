@@ -1,4 +1,8 @@
+import { FunctionComponent } from 'react';
+
 import useMedia from '@/hooks/useMedia';
+
+import { Movie } from '@/types/movies';
 
 import { ORIGINAL, LITEFLIX, PLAY_MOVIE, MY_LIST } from '@/constants/strings';
 
@@ -7,7 +11,11 @@ import IconText from '../UI/IconText';
 
 import styles from './FeaturedMovie.module.scss';
 
-const FeaturedMovie = () => {
+interface FeaturedMovieProps {
+  movie: Movie;
+}
+
+const FeaturedMovie: FunctionComponent<FeaturedMovieProps> = ({ movie }) => {
   const isDesktop = useMedia('desktop');
   return (
     <div className={`${styles.container} ${isDesktop ? styles.desktop : ''}`}>
@@ -15,7 +23,7 @@ const FeaturedMovie = () => {
         {`${ORIGINAL} `}
         <strong>{LITEFLIX}</strong>
       </h2>
-      <h3 className={styles.title}>MOVIE TITLE</h3>
+      <h3 className={styles.title}>{movie.name}</h3>
       <div className={styles['buttons-block']}>
         <Button type='primary'>
           <IconText iconPath='play.svg' text={PLAY_MOVIE} width={14} />

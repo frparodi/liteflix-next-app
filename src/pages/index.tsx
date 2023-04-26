@@ -1,10 +1,17 @@
+import { FunctionComponent } from 'react';
 import Head from 'next/head';
 import bebasFont from 'next/font/local';
 
 import useMedia from '@/hooks/useMedia';
 
+import { Movie } from '@/types/movies';
+
+import { fetchMovies } from '@/helpers/moviesHelper';
+
 import { APP_DESCRIPTION, APP_TITLE } from '@/constants/strings';
 
+import Background from '@/components/Background';
+import MovieCard from '@/components/MovieCard';
 import Navbar from '@/components/Navbar';
 import FeaturedMovie from '@/components/FeaturedMovie';
 
@@ -17,7 +24,15 @@ const bebas = bebasFont({
   ],
 });
 
-export default function Home() {
+interface HomeProps {
+  featuredMovie: Movie;
+  popularMovies: Movie[];
+}
+
+const Home: FunctionComponent<HomeProps> = ({
+  featuredMovie,
+  popularMovies,
+}) => {
   const isDesktop = useMedia('desktop');
   return (
     <>
@@ -28,24 +43,39 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main
-        className={`${styles.container} ${bebas.className} ${
+        className={`${styles['app-wrapper']} ${bebas.className} ${
           isDesktop ? styles.desktop : ''
         }`}
       >
+        <Background
+          backdropImage={featuredMovie.backdropImage}
+          posterImage={featuredMovie.posterImage}
+        />
         <Navbar />
         <div className={styles['main-content']}>
           <div className={styles['featured-movie-wrapper']}>
-            <FeaturedMovie />
+            <FeaturedMovie movie={featuredMovie} />
           </div>
           <div className={styles['movies-list-wrapper']}>
-            {/* REPLACE WITH REAL MOVIES */}
-            <div className={styles.movie}></div>
-            <div className={styles.movie}></div>
-            <div className={styles.movie}></div>
-            <div className={styles.movie}></div>
+            {popularMovies.map((movie: Movie) => (
+              <MovieCard key={movie.name} movie={movie} />
+            ))}
           </div>
         </div>
       </main>
     </>
   );
+};
+
+export default Home;
+
+export async function getStaticProps() {
+  const featuredMovie: Movie[] = await fetchMovies('featured', 1);
+  const popularMovies: Movie[] = await fetchMovies('popular', 4);
+  return {
+    props: {
+      featuredMovie: featuredMovie[0],
+      popularMovies,
+    },
+  };
 }

@@ -1,0 +1,40 @@
+@import '@/styles/colors';
+
+.backdrop {
+  position: relative;
+  padding-bottom: 56.25%;
+  z-index: -1;
+
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+
+    .text {
+      position: absolute;
+      bottom: 3rem;
+      left: 1rem;
+      right: 1rem;
+      text-align: center;
+      font-size: 1.6rem;
+      color: $white;
+      letter-spacing: 4px;
+    }
+  }
+
+  &.desktop {
+    padding-bottom: 66.66%;
+
+    .container {
+      .text {
+        bottom: 1.4rem;
+      }
+    }
+  }
+}

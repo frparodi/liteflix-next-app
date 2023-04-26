@@ -1,47 +1,50 @@
-.container {
+@import '@/styles/colors';
+
+.app-wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   .main-content {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: 2rem;
 
     .featured-movie-wrapper {
-      padding: 50% 3.2rem 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3.2rem 10rem;
     }
 
     .movies-list-wrapper {
       display: flex;
       flex-direction: column;
-      padding: 0 1rem;
-      gap: 2rem;
-
-      .movie {
-        padding-bottom: 44.44%;
-        border: 1px solid #ffffff80; // TODO: DELETE
-      }
+      padding: 0 2.4rem 5rem;
+      gap: 2.4rem;
     }
   }
 
   &.desktop {
+    max-height: 100vh;
+    padding: 0 10%;
+
     .main-content {
+      flex: 1;
       flex-direction: row;
-      padding: 0 10%;
-      gap: 12rem;
+      justify-content: flex-start;
+      gap: 5rem;
 
       .featured-movie-wrapper {
-        flex: 1;
-        padding: 40vh 0 0;
+        min-height: 0;
+        flex: 4;
+        padding: 0 0 10rem;
       }
 
       .movies-list-wrapper {
-        width: 25rem;
+        flex: 1;
         padding: 0;
-
-        .movie {
-          padding-bottom: 66.666%;
-        }
       }
     }
   }
