@@ -6,14 +6,14 @@ import useMedia from '@/hooks/useMedia';
 
 import { Movie } from '@/types/movies';
 
-import { fetchMovies } from '@/helpers/moviesHelper';
+import { fetchLiteflixMovies, fetchMyMovies } from '@/helpers/moviesHelper';
 
 import { APP_DESCRIPTION, APP_TITLE } from '@/constants/strings';
 
 import Background from '@/components/Background';
-import MovieCard from '@/components/MovieCard';
 import Navbar from '@/components/Navbar';
 import FeaturedMovie from '@/components/FeaturedMovie';
+import MoviesList from '@/components/MoviesList';
 
 import styles from './Home.module.scss';
 
@@ -27,13 +27,16 @@ const bebas = bebasFont({
 interface HomeProps {
   featuredMovie: Movie;
   popularMovies: Movie[];
+  myMovies: Movie[];
 }
 
 const Home: FunctionComponent<HomeProps> = ({
   featuredMovie,
   popularMovies,
+  myMovies,
 }) => {
   const isDesktop = useMedia('desktop');
+
   return (
     <>
       <Head>
@@ -57,9 +60,7 @@ const Home: FunctionComponent<HomeProps> = ({
             <FeaturedMovie movie={featuredMovie} />
           </div>
           <div className={styles['movies-list-wrapper']}>
-            {popularMovies.map((movie: Movie) => (
-              <MovieCard key={movie.name} movie={movie} />
-            ))}
+            <MoviesList popularMovies={popularMovies} myMovies={myMovies} />
           </div>
         </div>
       </main>
@@ -70,12 +71,14 @@ const Home: FunctionComponent<HomeProps> = ({
 export default Home;
 
 export async function getStaticProps() {
-  const featuredMovie: Movie[] = await fetchMovies('featured', 1);
-  const popularMovies: Movie[] = await fetchMovies('popular', 4);
+  const featuredMovie: Movie[] = await fetchLiteflixMovies('featured', 1);
+  const popularMovies: Movie[] = await fetchLiteflixMovies('popular', 4);
+  const myMovies = await fetchMyMovies();
   return {
     props: {
       featuredMovie: featuredMovie[0],
       popularMovies,
+      myMovies,
     },
   };
 }

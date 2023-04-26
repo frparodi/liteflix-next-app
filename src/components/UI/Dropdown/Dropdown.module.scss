@@ -1,0 +1,56 @@
+@import '@/styles/colors';
+
+.wrapper {
+  position: relative;
+  font-size: 1.8rem;
+
+  .button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .dropdown {
+    background-color: $black;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .label {
+        &.active {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &.drawer {
+    .dropdown {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 3.2rem 2.4rem;
+    }
+  }
+
+  &.floating {
+    .dropdown {
+      padding: 1rem 2rem;
+      position: absolute;
+      left: -2rem;
+      right: 0;
+      top: 3rem;
+      padding: 2.4rem;
+    }
+  }
+}

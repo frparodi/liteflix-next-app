@@ -9,3 +9,6 @@ export const ORIGINAL = `Original de`;
 export const ADD_MOVIE = 'Agregar película';
 export const PLAY_MOVIE = 'Reproducir';
 export const MY_LIST = 'Mi lista';
+export const POPULAR_MOVIES = 'Populares';
+export const MY_MOVIES = 'Mis películas';
+export const WATCH = 'Ver';

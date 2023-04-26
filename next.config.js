@@ -8,6 +8,11 @@ const nextConfig = {
         hostname: 'image.tmdb.org',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'liteflix-movies-bucket.s3.sa-east-1.amazonaws.com',
+        pathname: '/**',
+      },
     ],
   },
 };

@@ -1,6 +1,8 @@
+import { MongoClient } from 'mongodb';
+
 import { Movie } from '@/types/movies';
 
-export const fetchMovies = async (
+export const fetchLiteflixMovies = async (
   type: 'featured' | 'popular',
   quantity: number
 ) => {
@@ -22,4 +24,32 @@ export const fetchMovies = async (
     backdropImage: `${process.env.IMAGES_URL}${movie.backdrop_path}`,
   }));
   return formattedMovies;
+};
+
+export const fetchMyMovies = async () => {
+  const dbUser = process.env.MONGO_DB_USER;
+  const dbPassword = process.env.MONGO_DB_PASSWORD;
+  const dbUrl = process.env.MONGO_DB_URL;
+  const dbName = process.env.MONGO_DB_DATABASE;
+  const dbCollection = process.env.MONGO_DB_COLLECTION || '';
+  const uri = `mongodb+srv://${dbUser}:${dbPassword}@${dbUrl}/?retryWrites=true&w=majority`;
+
+  let movies: Movie[] = [];
+
+  const client = new MongoClient(uri);
+  try {
+    const database = client.db(dbName);
+    const moviesCollection = database.collection(dbCollection);
+    const rawMovies = await moviesCollection.find().toArray();
+    movies = rawMovies.map((movie) => ({
+      name: movie.name,
+      posterImage: movie.imageUrl,
+      backdropImage: movie.imageUrl,
+    }));
+  } catch (err) {
+    console.log(err);
+  } finally {
+    await client.close();
+  }
+  return movies;
 };

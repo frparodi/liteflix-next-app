@@ -1,8 +1,6 @@
 import { FunctionComponent } from 'react';
 import Image from 'next/image';
 
-import { Movie } from '@/types/movies';
-
 import useMedia from '@/hooks/useMedia';
 
 import Fader from '../effects/Fader';
@@ -12,20 +10,16 @@ import IconText from '../UI/IconText';
 import styles from './MovieCard.module.scss';
 
 interface MovieCardProps {
-  movie: Movie;
+  name: string;
+  image: string;
 }
 
-const MovieCard: FunctionComponent<MovieCardProps> = ({ movie }) => {
+const MovieCard: FunctionComponent<MovieCardProps> = ({ name, image }) => {
   const isDesktop = useMedia('desktop');
 
   return (
     <div className={`${styles.backdrop} ${isDesktop ? styles.desktop : ''}`}>
-      <Image
-        src={movie.backdropImage}
-        alt={movie.name}
-        fill
-        style={{ opacity: 0.7 }}
-      />
+      <Image src={image} alt={name} fill style={{ opacity: 0.7 }} />
       <Fader
         height='30%'
         zIndex={1}
@@ -36,7 +30,7 @@ const MovieCard: FunctionComponent<MovieCardProps> = ({ movie }) => {
       />
       <div className={styles.container}>
         <IconText iconPath='play-circle.svg' width={40} />
-        <span className={styles.text}>{movie.name}</span>
+        <span className={styles.text}>{name}</span>
       </div>
     </div>
   );
