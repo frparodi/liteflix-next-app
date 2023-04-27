@@ -5,7 +5,7 @@ import styles from './Button.module.scss';
 interface ButtonProps {
   children: ReactElement | string;
   type?: 'primary' | 'secondary' | 'link' | 'shiny';
-  onClick?: () => void;
+  onClick?: any;
   disabled?: boolean;
 }
 

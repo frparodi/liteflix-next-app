@@ -1,0 +1,16 @@
+@import '@/styles/colors';
+
+.file-zone {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.3rem 0;
+  border: 1px dashed $white;
+  letter-spacing: 4px;
+  font-size: 1.6rem;
+
+  &.desktop {
+    padding: 4rem;
+  }
+}

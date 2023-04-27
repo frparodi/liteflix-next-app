@@ -17,3 +17,6 @@ export const ADD_FILE_MOBILE = 'Agregá un archivo';
 export const TITLE = 'Título';
 export const UPLOAD_MOVIE = 'Subir película';
 export const EXIT = 'Salir';
+export const GO_TO_HOME = 'Ir a home';
+export const CONGRATULATIONS = '¡Felicitaciones!';
+export const WAS_SUCCESFULLY_UPLOADED = 'fue correctamente subida';
