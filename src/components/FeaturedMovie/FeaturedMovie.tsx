@@ -6,7 +6,7 @@ import { Movie } from '@/types/movies';
 
 import { ORIGINAL, LITEFLIX, PLAY_MOVIE, MY_LIST } from '@/constants/strings';
 
-import Button from '../UI/Button/Button';
+import Button from '../UI/Button';
 import IconText from '../UI/IconText';
 
 import styles from './FeaturedMovie.module.scss';

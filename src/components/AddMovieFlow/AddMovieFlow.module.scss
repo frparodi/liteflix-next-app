@@ -1,0 +1,84 @@
+@import '@/styles/colors';
+
+.container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16vh 2.4rem;
+
+  .title {
+    font-size: 2.2rem;
+    color: $primary;
+    align-self: center;
+    font-weight: bold;
+    letter-spacing: 4px;
+  }
+
+  .file-zone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.3rem;
+    border: 1px dashed $white;
+    letter-spacing: 4px;
+    font-size: 1.6rem;
+  }
+
+  .bottom-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding: 0 8vw;
+
+    .movie-name-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-bottom: 1px solid $white;
+
+      .movie-name {
+        font-size: 1.6rem;
+        color: $white;
+        letter-spacing: 4px;
+      }
+    }
+
+    .buttons-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+  }
+
+  &.desktop {
+    padding: 5rem;
+
+    .close {
+      position: absolute;
+      padding: 2rem;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title {
+      font-size: 2rem;
+    }
+
+    .file-zone {
+      padding: 4rem;
+    }
+
+    .bottom-box {
+      align-self: center;
+      width: 25rem;
+      padding: 0;
+      gap: 5rem;
+    }
+  }
+}
