@@ -58,6 +58,9 @@ handler.post<ExtendedRequest>(async (req, res) => {
 
   try {
     console.log('Por enviar a S3...');
+    console.log('S3 Config');
+    console.log(s3Config);
+    console.log('Bucket params');
     console.log(bucketParams);
     const s3Response = await s3Client.send(new PutObjectCommand(bucketParams));
     console.log(s3Response);
