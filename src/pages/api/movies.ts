@@ -16,6 +16,10 @@ const accessKeyId = process.env.AWS_KEY;
 const secretAccessKey = process.env.AWS_SECRET;
 const region = process.env.AWS_REGION;
 const Bucket = process.env.AWS_S3_BUCKET_NAME;
+console.log(accessKeyId);
+console.log(secretAccessKey);
+console.log(region);
+console.log(Bucket);
 
 const s3Config = {
   accessKeyId,
@@ -23,7 +27,7 @@ const s3Config = {
   region,
 };
 const s3Client = new S3Client(s3Config);
-
+console.log(s3Client);
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, _, res) => {
     res.status(500).end(err.toString());
@@ -52,11 +56,21 @@ handler.post<ExtendedRequest>(async (req, res) => {
     Body: image.buffer,
   };
 
+  console.log('--------------------');
+  console.log('--------------------');
+  console.log('--------------------');
+
   try {
     const s3Response = await s3Client.send(new PutObjectCommand(bucketParams));
+    console.log(s3Response);
+    console.log('--------------------');
     if (s3Response) {
       const imageUrl = `https://${Bucket}.s3.${region}.amazonaws.com/${imageName}`;
+      console.log(`imageUrl: ${imageUrl}`);
+      console.log('--------------------');
       const result = await saveMyMovieToDB(imageName, imageUrl);
+      console.log(result);
+      console.log('--------------------');
       if (result) {
         res.status(201).json({ data: 'Movie successfully uploaded!' });
       }
