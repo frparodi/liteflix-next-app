@@ -2,17 +2,21 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  height: 100%;
+  overflow-y: scroll;
+  padding-left: 2rem;
 
   .list {
     display: flex;
     flex-direction: column;
     padding: 0 2.4rem 5rem;
     gap: 2.4rem;
+    overflow-y: scroll;
   }
 
   &.desktop {
     .list {
-      padding: 0;
+      padding: 0 0 5rem;
     }
   }
 }
