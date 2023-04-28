@@ -6,7 +6,7 @@ import {
   DONE,
   FULL_LOADED,
   RETRY,
-  ERROR as ERROR_MESSAGE,
+  ERROR_UPLOADING_FILE,
   READY_TO_UPLOAD as READY_TO_UPLOAD_MESSAGE,
   LOADING as LOADING_MESSAGE,
 } from './strings';
@@ -14,11 +14,13 @@ import {
 interface ProgressBarProps {
   error?: boolean;
   progress?: number;
+  retryUpload: () => void;
 }
 
 const ProgressBar: FunctionComponent<ProgressBarProps> = ({
-  error = true,
-  progress = 100,
+  error = false,
+  progress = 0,
+  retryUpload,
 }) => {
   const READY_TO_UPLOAD = progress === 0 && !error;
   const LOADING = progress > 0 && progress < 100 && !error;
@@ -29,18 +31,18 @@ const ProgressBar: FunctionComponent<ProgressBarProps> = ({
       <span className={styles.status}>
         {LOADING && `${LOADING_MESSAGE} ${progress}%`}
         {READY_TO_UPLOAD && READY_TO_UPLOAD_MESSAGE}
-        {ERROR && ERROR_MESSAGE}
+        {ERROR && ERROR_UPLOADING_FILE}
         {SUCCESFULL_LOADING && FULL_LOADED}
       </span>
       <div className={styles['background-bar']}>
         <div
           className={`${styles['progress-bar']} ${error ? styles.error : ''}`}
-          style={{ width: `${progress}%` }}
+          style={{ width: `${error ? 100 : progress}%` }}
         />
       </div>
       <button
         type='button'
-        onClick={() => {}}
+        onClick={ERROR ? retryUpload : () => {}}
         className={`${styles.button} ${SUCCESFULL_LOADING ? styles.done : ''}`}
         disabled={SUCCESFULL_LOADING}
       >

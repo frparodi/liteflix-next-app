@@ -18,22 +18,25 @@ const useFileUpload = () => {
     setFile(file);
   };
 
-  const startFileUpload = () => {
-    console.log(`Starting to upload ${file?.name}...`);
-    setStatus(UploadStatusEnum.UPLOADING);
-    setProgress((prevValue) => prevValue + 20);
-    setTimeout(() => {
-      setProgress((prevValue) => prevValue + 20);
-      setTimeout(() => {
-        setProgress((prevValue) => prevValue + 20);
-        setTimeout(() => {
-          setProgress((prevValue) => prevValue + 20);
-          setTimeout(() => {
-            setProgress((prevValue) => prevValue + 20);
-          }, 1000);
-        }, 1000);
-      }, 1000);
-    }, 1000);
+  const startFileUpload = async () => {
+    if (file) {
+      setStatus(UploadStatusEnum.UPLOADING);
+      setProgress(10);
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('description', file.name);
+      try {
+        const response = await fetch('/api/movies', {
+          method: 'POST',
+          body: formData,
+        });
+        const apiResponse = await response.json();
+        setStatus(UploadStatusEnum.SUCCESS);
+      } catch (error) {
+        setStatus(UploadStatusEnum.ERROR);
+      }
+    }
   };
 
   const resetData = () => {

@@ -13,6 +13,7 @@ interface FileUploadWidgetProps {
   error: boolean;
   progress: number;
   onLoadedFile: (file: File) => void;
+  retryUpload: () => void;
 }
 
 const FileUploadWidget: FunctionComponent<FileUploadWidgetProps> = ({
@@ -20,6 +21,7 @@ const FileUploadWidget: FunctionComponent<FileUploadWidgetProps> = ({
   error,
   progress,
   onLoadedFile,
+  retryUpload,
 }) => {
   const isDesktop = useMedia('desktop');
 
@@ -38,7 +40,11 @@ const FileUploadWidget: FunctionComponent<FileUploadWidgetProps> = ({
   return (
     <>
       {readyToStart ? (
-        <ProgressBar error={error} progress={progress} />
+        <ProgressBar
+          error={error}
+          progress={progress}
+          retryUpload={retryUpload}
+        />
       ) : (
         <div
           className={`${styles['file-zone']} ${

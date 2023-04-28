@@ -86,6 +86,7 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
               error={ERROR}
               progress={progress}
               onLoadedFile={handleLoadedFile}
+              retryUpload={startFileUpload}
             />
             <div className={styles['movie-name-box']}>
               <Text color='white' fontWeight={movieTitle ? 'bold' : 'normal'}>
