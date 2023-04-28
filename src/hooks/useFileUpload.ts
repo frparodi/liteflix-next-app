@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { uploadToS3 } from '@/helpers/awsHelpers';
+
 export enum UploadStatusEnum {
   WAITING,
   UPLOADING,
@@ -22,14 +24,15 @@ const useFileUpload = () => {
     if (file) {
       setStatus(UploadStatusEnum.UPLOADING);
       setProgress(10);
-
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('description', file.name);
+      const { data }: any = await uploadToS3(file.name, file);
+      const movieData = {
+        movieName: file.name,
+        movieImageUrl: data.imageUrl,
+      };
       try {
         const response = await fetch(path, {
           method: 'POST',
-          body: formData,
+          body: JSON.stringify(movieData),
         });
         if (response.ok) {
           setStatus(UploadStatusEnum.SUCCESS);
@@ -37,6 +40,7 @@ const useFileUpload = () => {
           setStatus(UploadStatusEnum.ERROR);
         }
       } catch (error) {
+        console.log(error);
         setStatus(UploadStatusEnum.ERROR);
       }
     }
