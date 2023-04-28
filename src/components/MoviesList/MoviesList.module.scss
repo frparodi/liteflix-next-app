@@ -4,7 +4,6 @@
   gap: 2rem;
   height: 100%;
   overflow-y: scroll;
-  padding-left: 2rem;
 
   .list {
     display: flex;
@@ -15,8 +14,10 @@
   }
 
   &.desktop {
+    padding-left: 2rem;
+
     .list {
-      padding: 0 0 5rem;
+      padding: 0 0 2rem;
     }
   }
 }
