@@ -1,6 +1,7 @@
 import { FunctionComponent, useState } from 'react';
 
 import useMedia from '@/hooks/useMedia';
+import useMyMovies from '@/hooks/useMyMovies';
 
 import { Movie } from '@/types/movies';
 
@@ -18,18 +19,16 @@ const DROPDOWN_OPTIONS = [
 
 interface MoviesListProps {
   popularMovies: Movie[];
-  myMovies: Movie[];
 }
 
-const MoviesList: FunctionComponent<MoviesListProps> = ({
-  popularMovies,
-  myMovies,
-}) => {
+const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
   const [moviesToShow, setMoviesToShow] = useState<
     'popularMovies' | 'myMovies'
   >('popularMovies');
 
   const isDesktop = useMedia('desktop');
+
+  const { myMovies } = useMyMovies();
 
   const renderMoviesCards = (moviesList: Movie[]) =>
     moviesList.map((movie: Movie) => (

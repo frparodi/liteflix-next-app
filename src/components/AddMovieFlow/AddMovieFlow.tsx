@@ -51,6 +51,10 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
     setMovieTitle(file.name);
   };
 
+  const uploadFile = () => {
+    startFileUpload('/api/movies');
+  };
+
   const SUCCESS = status === UploadStatusEnum.SUCCESS;
   const ERROR = status === UploadStatusEnum.ERROR;
   const UPLOADING = status === UploadStatusEnum.UPLOADING;
@@ -86,7 +90,7 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
               error={ERROR}
               progress={progress}
               onLoadedFile={handleLoadedFile}
-              retryUpload={startFileUpload}
+              retryUpload={uploadFile}
             />
             <div className={styles['movie-name-box']}>
               <Text color='white' fontWeight={movieTitle ? 'bold' : 'normal'}>
@@ -99,7 +103,7 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
           <Button
             type='shiny'
             disabled={!movieTitle || ERROR || UPLOADING}
-            onClick={SUCCESS ? handleCloseModal : startFileUpload}
+            onClick={SUCCESS ? handleCloseModal : uploadFile}
           >
             {SUCCESS ? GO_TO_HOME : UPLOAD_MOVIE}
           </Button>

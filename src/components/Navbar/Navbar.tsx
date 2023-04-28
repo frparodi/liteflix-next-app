@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import useMedia from '@/hooks/useMedia';
+import useMyMovies from '@/hooks/useMyMovies';
 
 import { ADD_MOVIE } from '@/constants/strings';
 
@@ -16,9 +17,12 @@ const Navbar = () => {
   const isDesktop = useMedia('desktop');
   const isMobile = useMedia('mobile');
 
+  const { fetchMyMovies } = useMyMovies();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
+    fetchMyMovies();
     setIsModalOpen(false);
   };
 

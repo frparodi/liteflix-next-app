@@ -18,7 +18,7 @@ const useFileUpload = () => {
     setFile(file);
   };
 
-  const startFileUpload = async () => {
+  const startFileUpload = async (path: string) => {
     if (file) {
       setStatus(UploadStatusEnum.UPLOADING);
       setProgress(10);
@@ -27,12 +27,15 @@ const useFileUpload = () => {
       formData.append('image', file);
       formData.append('description', file.name);
       try {
-        const response = await fetch('/api/movies', {
+        const response = await fetch(path, {
           method: 'POST',
           body: formData,
         });
-        const apiResponse = await response.json();
-        setStatus(UploadStatusEnum.SUCCESS);
+        if (response.ok) {
+          setStatus(UploadStatusEnum.SUCCESS);
+        } else {
+          setStatus(UploadStatusEnum.ERROR);
+        }
       } catch (error) {
         setStatus(UploadStatusEnum.ERROR);
       }
