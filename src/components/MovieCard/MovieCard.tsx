@@ -19,7 +19,7 @@ const MovieCard: FunctionComponent<MovieCardProps> = ({ name, image }) => {
 
   return (
     <div className={`${styles.backdrop} ${isDesktop ? styles.desktop : ''}`}>
-      <Image src={image} alt={name} fill style={{ opacity: 0.7 }} />
+      <Image src={image} alt={name} fill />
       <Fader
         height='30%'
         zIndex={1}
