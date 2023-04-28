@@ -56,11 +56,8 @@ handler.post<ExtendedRequest>(async (req, res) => {
     Body: image.buffer,
   };
 
-  console.log('--------------------');
-  console.log('--------------------');
-  console.log('--------------------');
-
   try {
+    console.log('Por enviar a S3...');
     const s3Response = await s3Client.send(new PutObjectCommand(bucketParams));
     console.log(s3Response);
     console.log('--------------------');
@@ -76,6 +73,7 @@ handler.post<ExtendedRequest>(async (req, res) => {
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 });
