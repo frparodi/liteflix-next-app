@@ -1,7 +1,9 @@
-import { FunctionComponent, useState } from 'react';
+import { ChangeEventHandler, FunctionComponent, useState } from 'react';
 
 import useMedia from '@/hooks/useMedia';
 import useFileUpload from '@/hooks/useFileUpload';
+
+import { removeFileExtension } from '@/utils/stringUtils';
 
 import {
   ADD_MOVIE,
@@ -18,6 +20,7 @@ import IconText from '@/components/UI/IconText';
 import FileUploadWidget from '@/components/FileUploadWidget';
 import Text from '@/components/UI/Text';
 import AppLogo from '@/components/AppLogo';
+import Input from '@/components/UI/Input';
 
 import styles from './AddMovieFlow.module.scss';
 
@@ -26,7 +29,8 @@ interface AddMovieFlowProps {
 }
 
 const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
-  const [movieTitle, setMovieTitle] = useState<string | null>(null);
+  const [isMovieLoaded, setIsMovieLoaded] = useState(false);
+  const [movieTitle, setMovieTitle] = useState('');
 
   const isDesktop = useMedia('desktop');
   const isMobile = useMedia('mobile');
@@ -38,17 +42,28 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
     status,
     UploadStatusEnum,
     resetData,
+    changeFileName,
   } = useFileUpload();
 
   const handleCloseModal = () => {
     resetData();
-    setMovieTitle(null);
+    setIsMovieLoaded(false);
+    setMovieTitle('');
     closeModal();
   };
 
   const handleLoadedFile = (file: File) => {
+    const fileName = removeFileExtension(file.name);
     loadFile(file);
-    setMovieTitle(file.name);
+    changeFileName(fileName);
+    setMovieTitle(fileName);
+    setIsMovieLoaded(true);
+  };
+
+  const handleMovieNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const movieFileName = e.target.value;
+    setMovieTitle(movieFileName);
+    changeFileName(movieFileName);
   };
 
   const uploadFile = () => {
@@ -86,23 +101,27 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
               {ADD_MOVIE}
             </Text>
             <FileUploadWidget
-              readyToStart={!!movieTitle}
+              readyToStart={isMovieLoaded}
               error={ERROR}
               progress={progress}
               onLoadedFile={handleLoadedFile}
               retryUpload={uploadFile}
             />
             <div className={styles['movie-name-box']}>
-              <Text color='white' fontWeight={movieTitle ? 'bold' : 'normal'}>
-                {movieTitle ? movieTitle : TITLE}
-              </Text>
+              <Input
+                value={movieTitle}
+                placeholder={TITLE}
+                onChange={handleMovieNameChange}
+                disabled={!isMovieLoaded}
+                autoFocus
+              />
             </div>
           </div>
         )}
         <div className={styles['bottom-block']}>
           <Button
             type='shiny'
-            disabled={!movieTitle || ERROR || UPLOADING}
+            disabled={!isMovieLoaded || !movieTitle || ERROR || UPLOADING}
             onClick={SUCCESS ? handleCloseModal : uploadFile}
           >
             {SUCCESS ? GO_TO_HOME : UPLOAD_MOVIE}

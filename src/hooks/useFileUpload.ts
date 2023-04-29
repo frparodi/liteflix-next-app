@@ -11,6 +11,7 @@ export enum UploadStatusEnum {
 
 const useFileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<UploadStatusEnum>(
     UploadStatusEnum.WAITING
@@ -20,27 +21,38 @@ const useFileUpload = () => {
     setFile(file);
   };
 
+  const changeFileName = (name: string) => {
+    setFileName(name);
+  };
+
   const startFileUpload = async (path: string) => {
     if (file) {
       setStatus(UploadStatusEnum.UPLOADING);
-      setProgress(10);
-      const { data }: any = await uploadToS3(file.name, file);
-      const movieData = {
-        movieName: file.name,
-        movieImageUrl: data.imageUrl,
-      };
-      try {
-        const response = await fetch(path, {
-          method: 'POST',
-          body: JSON.stringify(movieData),
-        });
-        if (response.ok) {
-          setStatus(UploadStatusEnum.SUCCESS);
-        } else {
+      setProgress(30);
+      const uploadFileName = fileName ? fileName : file.name;
+      const response: any = await uploadToS3(uploadFileName, file);
+      if (response.status === 'ok') {
+        const movieData = {
+          movieName: uploadFileName,
+          movieImageUrl: response.data.imageUrl,
+        };
+        setProgress(80);
+        try {
+          const response = await fetch(path, {
+            method: 'POST',
+            body: JSON.stringify(movieData),
+          });
+          if (response.ok) {
+            setStatus(UploadStatusEnum.SUCCESS);
+          } else {
+            setStatus(UploadStatusEnum.ERROR);
+          }
+        } catch (error) {
+          console.log(error);
           setStatus(UploadStatusEnum.ERROR);
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        console.log(response.error || 'Unknown error');
         setStatus(UploadStatusEnum.ERROR);
       }
     }
@@ -62,6 +74,7 @@ const useFileUpload = () => {
 
   return {
     loadFile,
+    changeFileName,
     startFileUpload,
     progress,
     status,
