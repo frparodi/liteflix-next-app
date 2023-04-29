@@ -18,6 +18,7 @@ export const getMyMoviesFromDB = async () => {
     const moviesCollection = database.collection(dbCollection);
     const rawMovies = await moviesCollection.find().toArray();
     movies = rawMovies.map((movie) => ({
+      id: movie._id.toString(),
       name: movie.name,
       posterImage: movie.imageUrl,
       backdropImage: movie.imageUrl,

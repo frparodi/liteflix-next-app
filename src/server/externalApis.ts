@@ -17,6 +17,7 @@ export const fetchLiteflixMovies = async (
     index + quantity
   );
   const formattedMovies = reducedMoviesList.map((movie: any) => ({
+    id: movie.id,
     name: movie.title,
     posterImage: `${process.env.IMAGES_URL}${movie.poster_path}`,
     backdropImage: `${process.env.IMAGES_URL}${movie.backdrop_path}`,

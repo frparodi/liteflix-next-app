@@ -32,11 +32,7 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
 
   const renderMoviesCards = (moviesList: Movie[]) =>
     moviesList.map((movie: Movie) => (
-      <MovieCard
-        key={movie.name}
-        name={movie.name}
-        image={movie.backdropImage}
-      />
+      <MovieCard key={movie.id} name={movie.name} image={movie.backdropImage} />
     ));
 
   const placeholder = (
