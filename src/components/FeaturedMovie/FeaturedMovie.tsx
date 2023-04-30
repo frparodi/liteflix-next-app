@@ -6,8 +6,9 @@ import { Movie } from '@/types/movies';
 
 import { ORIGINAL, LITEFLIX, PLAY_MOVIE, MY_LIST } from '@/constants/strings';
 
-import Button from '../UI/Button';
-import IconText from '../UI/IconText';
+import Button from '@/components/UI/Button';
+import IconText from '@/components/UI/IconText';
+import Title from '@/components/UI/Title/Title';
 
 import styles from './FeaturedMovie.module.scss';
 
@@ -23,7 +24,7 @@ const FeaturedMovie: FunctionComponent<FeaturedMovieProps> = ({ movie }) => {
         {`${ORIGINAL} `}
         <strong>{LITEFLIX}</strong>
       </h2>
-      <h3 className={styles.title}>{movie.name}</h3>
+      <Title>{movie.name}</Title>
       <div className={styles['buttons-block']}>
         <Button type='primary'>
           <IconText iconPath='play.svg' text={PLAY_MOVIE} width={14} />

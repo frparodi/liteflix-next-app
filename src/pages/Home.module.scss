@@ -27,17 +27,18 @@
       flex: 1;
       flex-direction: row;
       justify-content: flex-start;
-      gap: 0;
+      gap: 5rem;
       overflow-y: hidden;
 
       .featured-movie-wrapper {
         min-height: 0;
-        flex: 4;
+        flex: 11;
         padding: 0 0 10rem;
+        overflow-x: hidden;
       }
 
       .movies-list-wrapper {
-        flex: 1;
+        flex: 3;
       }
     }
   }

@@ -1,0 +1,15 @@
+@import '@/styles/colors';
+
+.title {
+  color: $primary;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  &.desktop {
+    text-align: left;
+    position: relative;
+    left: -4px;
+  }
+}
