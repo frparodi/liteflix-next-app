@@ -18,19 +18,25 @@ const MovieCard: FunctionComponent<MovieCardProps> = ({ name, image }) => {
   const isDesktop = useMedia('desktop');
 
   return (
-    <div className={`${styles.backdrop} ${isDesktop ? styles.desktop : ''}`}>
+    <div
+      className={`${styles.backdrop} ${
+        isDesktop ? styles.desktop : styles.mobile
+      }`}
+    >
       <Image src={image} alt={name} fill />
-      <Fader
-        height='30%'
-        zIndex={1}
-        startingColor='rgba(0,0,0,0)'
-        endingColor='rgba(0,0,0,1)'
-        startingPoint='22.78%'
-        endingPoint='122.69%'
-      />
-      <div className={styles.container}>
-        <IconText iconPath='play-circle.svg' width={40} />
-        <span className={styles.text}>{name}</span>
+      <div className={styles['base-layer']}>
+        <Fader
+          height='73%'
+          zIndex={1}
+          startingColor='rgba(0,0,0,0)'
+          endingColor='rgba(0,0,0,1)'
+          startingPoint='22.78%'
+          endingPoint='122.69%'
+        />
+        <div className={styles['base-layer-content']}>
+          <IconText iconPath='play-circle.svg' width={48} />
+          <span className={styles.text}>{name.slice(0, 40)}</span>
+        </div>
       </div>
     </div>
   );

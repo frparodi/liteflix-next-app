@@ -2,10 +2,14 @@
 
 .backdrop {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 52.6%;
   z-index: -1;
 
-  .container {
+  img {
+    object-fit: cover;
+  }
+
+  .base-layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -14,26 +18,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
 
-    .text {
-      position: absolute;
-      bottom: 3rem;
-      left: 1rem;
-      right: 1rem;
-      text-align: center;
-      font-size: 1.6rem;
-      color: $white;
-      letter-spacing: 4px;
+    .base-layer-content {
+      position: relative;
+      top: -1rem;
+      z-index: 10;
+
+      .text {
+        position: absolute;
+        top: calc(100% + 2rem);
+        left: -10rem;
+        right: -10rem;
+        bottom: -6rem;
+        text-align: center;
+        font-size: 1.6rem;
+        color: $white;
+        letter-spacing: 4px;
+        overflow-y: hidden;
+      }
     }
   }
 
   &.desktop {
-    padding-bottom: 66.66%;
+    padding-bottom: 66.36%;
 
-    .container {
-      .text {
-        bottom: 1.4rem;
+    .base-layer {
+      .base-layer-content {
+        top: 0;
       }
     }
   }
