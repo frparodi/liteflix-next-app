@@ -15,8 +15,8 @@
   }
 
   .dropdown {
-    background-color: $black;
     display: flex;
+    background-color: $black;
     flex-direction: column;
     gap: 1.6rem;
 
@@ -32,26 +32,32 @@
         }
       }
     }
-  }
 
-  &.drawer {
-    .dropdown {
+    &.drawer {
       position: fixed;
       left: 0;
       right: 0;
-      bottom: 0;
       padding: 3.2rem 2.4rem;
-    }
-  }
+      bottom: -20rem;
+      transition: all ease-in 350ms;
 
-  &.floating {
-    .dropdown {
+      &.show {
+        bottom: 0;
+      }
+    }
+
+    &.floating {
+      display: none;
       padding: 1rem 2rem;
       position: absolute;
       left: -2rem;
       right: 0;
       top: 3rem;
       padding: 2.4rem;
+
+      &.show {
+        display: flex;
+      }
     }
   }
 }

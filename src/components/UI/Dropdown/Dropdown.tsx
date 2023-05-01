@@ -23,7 +23,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   return (
     <div
-      className={c(styles.wrapper, styles[type])}
+      className={styles.wrapper}
       onMouseLeave={() => setIsDropdownVisible(false)}
     >
       <button
@@ -35,31 +35,35 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
         {placeholder}
         <IconText iconPath='arrow.svg' width={18} height={9} />
       </button>
-      {isDropdownVisible && (
-        <div className={styles.dropdown}>
-          {options.map((option) => (
-            <button
-              className={styles.option}
-              key={option.value}
-              onClick={() => {
-                onChange(option.value);
-              }}
-            >
-              <span
-                className={c(
-                  styles.label,
-                  value === option.value && styles.active
-                )}
-              >
-                {option.label}
-              </span>
-              {value === option.value && (
-                <IconText iconPath='check.svg' width={18} height={12} />
+      <div
+        className={c(
+          styles.dropdown,
+          styles[type],
+          isDropdownVisible && styles.show
+        )}
+      >
+        {options.map((option) => (
+          <button
+            className={styles.option}
+            key={option.value}
+            onClick={() => {
+              onChange(option.value);
+            }}
+          >
+            <span
+              className={c(
+                styles.label,
+                value === option.value && styles.active
               )}
-            </button>
-          ))}
-        </div>
-      )}
+            >
+              {option.label}
+            </span>
+            {value === option.value && (
+              <IconText iconPath='check.svg' width={18} height={12} />
+            )}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
