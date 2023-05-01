@@ -2,7 +2,9 @@ import { FunctionComponent } from 'react';
 
 import useMedia from '@/hooks/useMedia';
 
-import Fader from '../effects/Fader';
+import { Device } from '@/types/devices';
+
+import Fader from '@/components/effects/Fader';
 
 interface BackgroundProps {
   posterImage: string;
@@ -13,7 +15,7 @@ export const Background: FunctionComponent<BackgroundProps> = ({
   posterImage,
   backdropImage,
 }) => {
-  const isMobile = useMedia('mobile');
+  const isMobile = useMedia(Device.MOBILE);
   return (
     <>
       <div

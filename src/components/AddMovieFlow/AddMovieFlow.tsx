@@ -4,6 +4,8 @@ import c from 'classnames';
 import useMedia from '@/hooks/useMedia';
 import useFileUpload from '@/hooks/useFileUpload';
 
+import { Device } from '@/types/devices';
+
 import { removeFileExtension } from '@/utils/stringUtils';
 
 import {
@@ -33,8 +35,8 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
   const [isMovieLoaded, setIsMovieLoaded] = useState(false);
   const [movieTitle, setMovieTitle] = useState('');
 
-  const isDesktop = useMedia('desktop');
-  const isMobile = useMedia('mobile');
+  const isDesktop = useMedia(Device.DESKTOP);
+  const isMobile = useMedia(Device.MOBILE);
 
   const {
     loadFile,

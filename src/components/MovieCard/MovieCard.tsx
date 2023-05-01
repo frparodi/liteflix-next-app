@@ -4,6 +4,8 @@ import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
+import { Device } from '@/types/devices';
+
 import BaseLayer from './BaseLayer';
 import StatsLayer from './StatsLayer';
 
@@ -26,7 +28,7 @@ const MovieCard: FunctionComponent<MovieCardProps> = ({
   isActive,
   setActiveMovieIndex,
 }) => {
-  const isDesktop = useMedia('desktop');
+  const isDesktop = useMedia(Device.DESKTOP);
 
   const [showStats, setShowStats] = useState(false);
 

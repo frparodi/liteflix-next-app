@@ -4,6 +4,7 @@ import c from 'classnames';
 import useMedia from '@/hooks/useMedia';
 
 import { Movie } from '@/types/movies';
+import { Device } from '@/types/devices';
 
 import { ORIGINAL, LITEFLIX, PLAY_MOVIE, MY_LIST } from '@/constants/strings';
 
@@ -18,7 +19,7 @@ interface FeaturedMovieProps {
 }
 
 const FeaturedMovie: FunctionComponent<FeaturedMovieProps> = ({ movie }) => {
-  const isDesktop = useMedia('desktop');
+  const isDesktop = useMedia(Device.DESKTOP);
   return (
     <div className={c(styles.container, isDesktop && styles.desktop)}>
       <h2 className={styles.subtitle}>

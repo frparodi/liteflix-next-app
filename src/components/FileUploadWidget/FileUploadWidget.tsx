@@ -3,6 +3,8 @@ import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
+import { Device } from '@/types/devices';
+
 import { ADD_FILE_DESKTOP, ADD_FILE_MOBILE } from '@/constants/strings';
 
 import ProgressBar from '../UI/ProgressBar';
@@ -24,7 +26,7 @@ const FileUploadWidget: FunctionComponent<FileUploadWidgetProps> = ({
   onLoadedFile,
   retryUpload,
 }) => {
-  const isDesktop = useMedia('desktop');
+  const isDesktop = useMedia(Device.DESKTOP);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
 

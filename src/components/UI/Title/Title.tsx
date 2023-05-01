@@ -22,8 +22,6 @@ export const calcTitleProps = (string: string, device: Device) => {
         0
       );
     const textTooBig = stringLength > 20 || longerWord > 8;
-    console.log(stringLength);
-    console.log(longerWord);
     switch (device) {
       case Device.DESKTOP:
         return {

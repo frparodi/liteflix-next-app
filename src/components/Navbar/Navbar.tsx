@@ -4,6 +4,8 @@ import c from 'classnames';
 import useMedia from '@/hooks/useMedia';
 import useMyMovies from '@/hooks/useMyMovies';
 
+import { Device } from '@/types/devices';
+
 import { ADD_MOVIE } from '@/constants/strings';
 
 import AppLogo from '@/components/AppLogo';
@@ -15,8 +17,8 @@ import AddMovieFlow from '@/components/AddMovieFlow';
 import styles from './Navbar.module.scss';
 
 const Navbar = () => {
-  const isDesktop = useMedia('desktop');
-  const isMobile = useMedia('mobile');
+  const isDesktop = useMedia(Device.DESKTOP);
+  const isMobile = useMedia(Device.MOBILE);
 
   const { fetchMyMovies } = useMyMovies();
 

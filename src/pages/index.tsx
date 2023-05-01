@@ -13,6 +13,8 @@ import { Movie } from '@/types/movies';
 
 import { APP_DESCRIPTION, APP_TITLE } from '@/constants/strings';
 
+import { Device } from '@/types/devices';
+
 import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import FeaturedMovie from '@/components/FeaturedMovie';
@@ -36,7 +38,7 @@ const Home: FunctionComponent<HomeProps> = ({
   featuredMovie,
   popularMovies,
 }) => {
-  const isDesktop = useMedia('desktop');
+  const isDesktop = useMedia(Device.DESKTOP);
 
   return (
     <>

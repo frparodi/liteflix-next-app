@@ -1,6 +1,7 @@
+import { Device } from '@/types/devices';
 import { useState, useEffect, useMemo } from 'react';
 
-const useMedia = (device: 'mobile' | 'desktop') => {
+const useMedia = (device: Device.MOBILE | Device.DESKTOP) => {
   const [matches, setMatches] = useState(false);
 
   const query = useMemo(

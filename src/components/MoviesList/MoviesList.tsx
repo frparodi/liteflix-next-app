@@ -8,6 +8,8 @@ import { Movie } from '@/types/movies';
 
 import { MY_MOVIES, POPULAR_MOVIES, WATCH } from '@/constants/strings';
 
+import { Device } from '@/types/devices';
+
 import Dropdown from '@/components/UI/Dropdown';
 import MovieCard from '@/components/MovieCard';
 
@@ -29,7 +31,7 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
 
   const [activeMovieIndex, setActiveMovieIndex] = useState(-1);
 
-  const isDesktop = useMedia('desktop');
+  const isDesktop = useMedia(Device.DESKTOP);
 
   const { myMovies } = useMyMovies();
 

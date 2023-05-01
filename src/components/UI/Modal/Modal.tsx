@@ -10,6 +10,8 @@ import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
+import { Device } from '@/types/devices';
+
 import styles from './Modal.module.scss';
 
 interface ModalProps {
@@ -21,7 +23,8 @@ interface ModalProps {
 const Modal: FunctionComponent<ModalProps> = ({ children, show, onClose }) => {
   const ref = useRef<Element | null>(null);
   const [mounted, setMounted] = useState(false);
-  const isDesktop = useMedia('desktop');
+
+  const isDesktop = useMedia(Device.DESKTOP);
 
   useEffect(() => {
     ref.current = document.querySelector<HTMLElement>('#app-wrapper');
