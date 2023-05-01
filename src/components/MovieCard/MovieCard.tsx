@@ -1,43 +1,67 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import Image from 'next/image';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
-import Fader from '../effects/Fader';
-
-import IconText from '../UI/IconText';
+import BaseLayer from './BaseLayer';
+import StatsLayer from './StatsLayer';
 
 import styles from './MovieCard.module.scss';
 
 interface MovieCardProps {
   name: string;
   image: string;
+  score?: number;
+  year?: string;
+  isActive: boolean;
+  setActiveMovieIndex: () => void;
 }
 
-const MovieCard: FunctionComponent<MovieCardProps> = ({ name, image }) => {
+const MovieCard: FunctionComponent<MovieCardProps> = ({
+  name,
+  image,
+  score,
+  year,
+  isActive,
+  setActiveMovieIndex,
+}) => {
   const isDesktop = useMedia('desktop');
 
+  const [showStats, setShowStats] = useState(false);
+
+  useEffect(() => {
+    if (!isActive) {
+      setShowStats(false);
+    }
+  }, [isActive]);
+
+  const showStatsLayer = () => {
+    setShowStats(true);
+    setActiveMovieIndex();
+  };
+
+  const hideStatsLayer = () => {
+    setShowStats(false);
+  };
+
+  const formattedMovieTitle = name.slice(0, 40);
+
   return (
-    <div
-      className={`${styles.backdrop} ${
-        isDesktop ? styles.desktop : styles.mobile
-      }`}
-    >
+    <div className={c(styles.frame, isDesktop && styles.desktop)}>
       <Image src={image} alt={name} fill />
-      <div className={styles['base-layer']}>
-        <Fader
-          height='73%'
-          zIndex={1}
-          startingColor='rgba(0,0,0,0)'
-          endingColor='rgba(0,0,0,1)'
-          startingPoint='22.78%'
-          endingPoint='122.69%'
-        />
-        <div className={styles['base-layer-content']}>
-          <IconText iconPath='play-circle.svg' width={48} />
-          <span className={styles.text}>{name.slice(0, 40)}</span>
-        </div>
-      </div>
+      <BaseLayer
+        isActive={!showStats}
+        movieTitle={formattedMovieTitle}
+        showStatsLayer={showStatsLayer}
+      />
+      <StatsLayer
+        isLayerActive={isActive && showStats}
+        movieTitle={formattedMovieTitle}
+        score={score}
+        year={year}
+        hideLayer={hideStatsLayer}
+      />
     </div>
   );
 };

@@ -1,0 +1,55 @@
+@import '@/styles/colors';
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s;
+  opacity: 0.1%;
+
+  .content {
+    position: relative;
+    top: -1rem;
+    z-index: 3;
+
+    .text {
+      position: absolute;
+      top: calc(100% + 2rem);
+      left: -10rem;
+      right: -10rem;
+      bottom: -6rem;
+      text-align: center;
+      font-size: 1.6rem;
+      color: $white;
+      letter-spacing: 4px;
+      overflow-y: hidden;
+    }
+  }
+
+  .clickable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.active {
+    opacity: 1;
+
+    .clickable {
+      z-index: 10;
+    }
+  }
+
+  &.desktop {
+    .content {
+      top: 0;
+    }
+  }
+}

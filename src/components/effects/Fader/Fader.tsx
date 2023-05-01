@@ -13,7 +13,7 @@ const Fader: FunctionComponent<FaderProps> = ({
   startingColor,
   endingColor,
   height,
-  zIndex = '1',
+  zIndex,
   startingPoint = '0%',
   endingPoint = '100%',
 }) => {

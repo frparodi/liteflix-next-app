@@ -26,14 +26,16 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
     'popularMovies' | 'myMovies'
   >('popularMovies');
 
+  const [activeMovieIndex, setActiveMovieIndex] = useState(-1);
+
   const isDesktop = useMedia('desktop');
 
   const { myMovies } = useMyMovies();
 
-  const renderMoviesCards = (moviesList: Movie[]) =>
-    moviesList.map((movie: Movie) => (
-      <MovieCard key={movie.id} name={movie.name} image={movie.backdropImage} />
-    ));
+  const handleChangeMoviesList = (value: 'popularMovies' | 'myMovies') => {
+    setActiveMovieIndex(-1);
+    setMoviesToShow(value);
+  };
 
   const placeholder = (
     <div>
@@ -56,13 +58,35 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
         placeholder={placeholder}
         options={DROPDOWN_OPTIONS}
         value={moviesToShow}
-        onChange={(value: 'popularMovies' | 'myMovies') => {
-          setMoviesToShow(value);
-        }}
+        onChange={handleChangeMoviesList}
       />
       <div className={styles.list}>
-        {moviesToShow === 'popularMovies' && renderMoviesCards(popularMovies)}
-        {moviesToShow === 'myMovies' && renderMoviesCards(myMovies)}
+        {moviesToShow === 'popularMovies' &&
+          popularMovies.map((movie: Movie, index: number) => (
+            <MovieCard
+              key={movie.id}
+              name={movie.name}
+              image={movie.backdropImage}
+              isActive={activeMovieIndex === index}
+              setActiveMovieIndex={() => {
+                setActiveMovieIndex(index);
+              }}
+              score={movie.score}
+              year={movie.year}
+            />
+          ))}
+        {moviesToShow === 'myMovies' &&
+          myMovies.map((movie: Movie, index: number) => (
+            <MovieCard
+              key={movie.id}
+              name={movie.name}
+              image={movie.backdropImage}
+              isActive={activeMovieIndex === index}
+              setActiveMovieIndex={() => {
+                setActiveMovieIndex(index);
+              }}
+            />
+          ))}
       </div>
     </div>
   );

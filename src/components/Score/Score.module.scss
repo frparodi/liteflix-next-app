@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  .score {
+    position: relative;
+    top: 2px;
+    letter-spacing: 2px;
+    font-size: 1.4rem;
+  }
+}

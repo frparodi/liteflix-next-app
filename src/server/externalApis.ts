@@ -21,6 +21,8 @@ export const fetchLiteflixMovies = async (
     name: movie.title,
     posterImage: `${process.env.IMAGES_URL}${movie.poster_path}`,
     backdropImage: `${process.env.IMAGES_URL}${movie.backdrop_path}`,
+    score: movie.vote_average,
+    year: movie.release_date && movie.release_date.split('-')[0],
   }));
   return formattedMovies;
 };
