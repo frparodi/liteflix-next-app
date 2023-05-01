@@ -50,6 +50,13 @@
   &.desktop {
     .content {
       top: 0;
+
+      .text {
+        top: calc(100% + 1rem);
+        left: -6rem;
+        right: -6rem;
+        bottom: -4rem;
+      }
     }
   }
 }
