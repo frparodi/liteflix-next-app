@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
@@ -19,7 +20,7 @@ interface FeaturedMovieProps {
 const FeaturedMovie: FunctionComponent<FeaturedMovieProps> = ({ movie }) => {
   const isDesktop = useMedia('desktop');
   return (
-    <div className={`${styles.container} ${isDesktop ? styles.desktop : ''}`}>
+    <div className={c(styles.container, isDesktop && styles.desktop)}>
       <h2 className={styles.subtitle}>
         {`${ORIGINAL} `}
         <strong>{LITEFLIX}</strong>

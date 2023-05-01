@@ -1,4 +1,5 @@
 import { ChangeEvent, FunctionComponent, useRef } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
@@ -47,9 +48,7 @@ const FileUploadWidget: FunctionComponent<FileUploadWidgetProps> = ({
         />
       ) : (
         <div
-          className={`${styles['file-zone']} ${
-            isDesktop ? styles.desktop : ''
-          }`}
+          className={c(styles['file-zone'], isDesktop && styles.desktop)}
           onClick={handleClick}
         >
           <span>{isDesktop ? ADD_FILE_DESKTOP : ADD_FILE_MOBILE}</span>

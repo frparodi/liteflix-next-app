@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 import useMyMovies from '@/hooks/useMyMovies';
@@ -52,7 +53,7 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
   );
 
   return (
-    <div className={`${styles.container} ${isDesktop ? styles.desktop : ''}`}>
+    <div className={c(styles.container, isDesktop && styles.desktop)}>
       <Dropdown
         type={isDesktop ? 'floating' : 'drawer'}
         placeholder={placeholder}

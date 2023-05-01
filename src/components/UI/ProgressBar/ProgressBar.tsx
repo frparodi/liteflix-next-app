@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import c from 'classnames';
 
 import styles from './ProgressBar.module.scss';
 import {
@@ -36,14 +37,14 @@ const ProgressBar: FunctionComponent<ProgressBarProps> = ({
       </span>
       <div className={styles['background-bar']}>
         <div
-          className={`${styles['progress-bar']} ${error ? styles.error : ''}`}
+          className={c(styles['progress-bar'], error && styles.error)}
           style={{ width: `${error ? 100 : progress}%` }}
         />
       </div>
       <button
         type='button'
         onClick={ERROR ? retryUpload : () => {}}
-        className={`${styles.button} ${SUCCESFULL_LOADING ? styles.done : ''}`}
+        className={c(styles.button, SUCCESFULL_LOADING && styles.done)}
         disabled={SUCCESFULL_LOADING}
       >
         {LOADING && CANCEL}

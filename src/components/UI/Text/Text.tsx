@@ -23,7 +23,7 @@ const Text: FunctionComponent<TextProps> = ({
 }) => {
   return (
     <span
-      className={`${styles.text}`}
+      className={styles.text}
       style={{
         color,
         fontSize,

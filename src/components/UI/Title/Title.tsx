@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
@@ -46,7 +47,7 @@ const Title: FunctionComponent<TitleProps> = ({ children }) => {
   const device = isDesktop ? Device.DESKTOP : Device.MOBILE;
   return (
     <h3
-      className={`${styles.title} ${isDesktop ? styles.desktop : ''}`}
+      className={c(styles.title, isDesktop && styles.desktop)}
       style={calcTitleProps(children, device)}
     >
       {children}

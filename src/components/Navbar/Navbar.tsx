@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 import useMyMovies from '@/hooks/useMyMovies';
@@ -32,9 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header
-        className={`${styles.container} ${isDesktop ? styles.desktop : ''}`}
-      >
+      <header className={c(styles.container, isDesktop && styles.desktop)}>
         {isMobile && (
           <button type='button' onClick={showModal}>
             <IconText iconPath='add.svg' width={36} />

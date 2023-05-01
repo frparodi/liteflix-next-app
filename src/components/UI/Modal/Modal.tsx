@@ -6,6 +6,7 @@ import {
   useEffect,
 } from 'react';
 import { createPortal } from 'react-dom';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
@@ -31,18 +32,22 @@ const Modal: FunctionComponent<ModalProps> = ({ children, show, onClose }) => {
     <>
       {createPortal(
         <div
-          className={`${styles.backdrop} ${show ? styles.show : ''} ${
+          className={c(
+            styles.backdrop,
+            show && styles.show,
             isDesktop ? styles.desktop : styles.mobile
-          }`}
+          )}
           onClick={onClose}
         />,
         ref.current
       )}
       {createPortal(
         <div
-          className={`${styles.modal} ${show ? styles.show : ''} ${
+          className={c(
+            styles.modal,
+            show && styles.show,
             isDesktop ? styles.desktop : styles.mobile
-          }`}
+          )}
         >
           {children}
         </div>,

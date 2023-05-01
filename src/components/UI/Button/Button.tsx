@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactElement } from 'react';
+import c from 'classnames';
 
 import styles from './Button.module.scss';
 
@@ -19,7 +20,7 @@ const Button: FunctionComponent<ButtonProps> = ({
     <button
       type='button'
       onClick={onClick}
-      className={`${styles.button} ${styles[type]}`}
+      className={c(styles.button, styles[type])}
       disabled={disabled}
     >
       {children}

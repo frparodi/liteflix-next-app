@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactElement, useState } from 'react';
+import c from 'classnames';
 
 import IconText from '../IconText';
 
@@ -22,7 +23,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   return (
     <div
-      className={`${styles.wrapper} ${styles[type]}`}
+      className={c(styles.wrapper, styles[type])}
       onMouseLeave={() => setIsDropdownVisible(false)}
     >
       <button
@@ -45,9 +46,10 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
               }}
             >
               <span
-                className={`${styles.label} ${
-                  value === option.value ? styles.active : ''
-                }`}
+                className={c(
+                  styles.label,
+                  value === option.value && styles.active
+                )}
               >
                 {option.label}
               </span>

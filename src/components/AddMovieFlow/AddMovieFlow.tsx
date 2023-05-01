@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FunctionComponent, useState } from 'react';
+import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 import useFileUpload from '@/hooks/useFileUpload';
@@ -77,9 +78,10 @@ const AddMovieFlow: FunctionComponent<AddMovieFlowProps> = ({ closeModal }) => {
   return (
     <>
       <div
-        className={`${styles.container} ${
+        className={c(
+          styles.container,
           isDesktop ? styles.desktop : styles.mobile
-        }`}
+        )}
       >
         {SUCCESS ? (
           <div className={styles['success-block']}>

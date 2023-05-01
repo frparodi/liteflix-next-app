@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import c from 'classnames';
 import Head from 'next/head';
 import bebasFont from 'next/font/local';
 
@@ -48,9 +49,11 @@ const Home: FunctionComponent<HomeProps> = ({
       <MyMoviesProvider>
         <main
           id='app-wrapper'
-          className={`${styles['app-wrapper']} ${bebas.className} ${
-            isDesktop ? styles.desktop : ''
-          }`}
+          className={c(
+            styles['app-wrapper'],
+            bebas.className,
+            isDesktop && styles.desktop
+          )}
         >
           <Background
             backdropImage={featuredMovie.backdropImage}
