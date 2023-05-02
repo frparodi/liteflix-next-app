@@ -1,6 +1,11 @@
 @import '@/styles/colors';
 
 .container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,6 +24,14 @@
   }
 
   &.desktop {
-    padding: 3.5rem 0;
+    top: -10rem;
+    left: 10%;
+    right: 10%;
+    height: 10rem;
+    transition: top 1s;
+
+    &.show {
+      top: 0;
+    }
   }
 }

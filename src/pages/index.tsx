@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import c from 'classnames';
 import Head from 'next/head';
 import bebasFont from 'next/font/local';
@@ -8,6 +8,7 @@ import { fetchLiteflixMovies } from '@/server/externalApis';
 import MyMoviesProvider from '@/context/MyMoviesProvider';
 
 import useMedia from '@/hooks/useMedia';
+import useMyMovies from '@/hooks/useMyMovies';
 
 import { Movie } from '@/types/movies';
 
@@ -16,10 +17,13 @@ import { APP_DESCRIPTION, APP_TITLE } from '@/constants/strings';
 import { Device } from '@/types/devices';
 
 import Cover from '@/components/UI/Cover';
+import Modal from '@/components/UI/Modal';
+
 import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import FeaturedMovie from '@/components/FeaturedMovie';
 import MoviesList from '@/components/MoviesList';
+import AddMovieFlow from '@/components/AddMovieFlow';
 
 import styles from './Home.module.scss';
 
@@ -40,6 +44,35 @@ const Home: FunctionComponent<HomeProps> = ({
   popularMovies,
 }) => {
   const isDesktop = useMedia(Device.DESKTOP);
+
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [showFeaturedMovie, setShowFeaturedMovie] = useState(false);
+  const [showMoviesList, setShowMoviesList] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { fetchMyMovies } = useMyMovies();
+
+  const closeModal = () => {
+    fetchMyMovies();
+    setIsModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowNavbar(true);
+      setTimeout(() => {
+        setShowFeaturedMovie(true);
+        setTimeout(() => {
+          setShowMoviesList(true);
+        }, 1000);
+      }, 1000);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -63,15 +96,28 @@ const Home: FunctionComponent<HomeProps> = ({
             backdropImage={featuredMovie.backdropImage}
             posterImage={featuredMovie.posterImage}
           />
-          <Navbar />
+          <Navbar showNavbar={showNavbar} openModal={openModal} />
           <div className={styles['main-content']}>
-            <div className={styles['featured-movie-wrapper']}>
+            <div
+              className={c(
+                styles['featured-movie-wrapper'],
+                showFeaturedMovie && styles.show
+              )}
+            >
               <FeaturedMovie movie={featuredMovie} />
             </div>
-            <div className={styles['movies-list-wrapper']}>
+            <div
+              className={c(
+                styles['movies-list-wrapper'],
+                showMoviesList && styles.show
+              )}
+            >
               <MoviesList popularMovies={popularMovies} />
             </div>
           </div>
+          <Modal show={isModalOpen} onClose={closeModal}>
+            <AddMovieFlow closeModal={closeModal} />
+          </Modal>
         </main>
       </MyMoviesProvider>
     </>

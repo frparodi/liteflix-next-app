@@ -8,6 +8,8 @@
   &.mobile {
     top: 0;
     bottom: 0;
+    right: -100vw;
+    left: 100vw;
 
     &.show {
       animation: appear-from-right 500ms linear forwards;
@@ -22,6 +24,9 @@
     height: 44rem;
     min-width: 73rem;
     min-height: 44rem;
+    top: 200rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     &.show {
       animation: appear-from-below 500ms ease-out forwards;
