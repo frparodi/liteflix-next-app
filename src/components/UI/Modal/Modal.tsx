@@ -6,13 +6,13 @@ import {
   useEffect,
 } from 'react';
 import { createPortal } from 'react-dom';
-import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
 
 import { Device } from '@/types/devices';
 
-import styles from './Modal.module.scss';
+import Backdrop from './Backdrop';
+import Frame from './Frame';
 
 interface ModalProps {
   children: ReactElement;
@@ -33,29 +33,9 @@ const Modal: FunctionComponent<ModalProps> = ({ children, show, onClose }) => {
 
   return mounted && ref.current ? (
     <>
-      {createPortal(
-        <div
-          className={c(
-            styles.backdrop,
-            show && styles.show,
-            isDesktop ? styles.desktop : styles.mobile
-          )}
-          onClick={onClose}
-        />,
-        ref.current
-      )}
-      {createPortal(
-        <div
-          className={c(
-            styles.modal,
-            show && styles.show,
-            isDesktop ? styles.desktop : styles.mobile
-          )}
-        >
-          {children}
-        </div>,
-        ref.current
-      )}
+      {isDesktop &&
+        createPortal(<Backdrop show={show} onClose={onClose} />, ref.current)}
+      {createPortal(<Frame show={show}>{children}</Frame>, ref.current)}
     </>
   ) : null;
 };

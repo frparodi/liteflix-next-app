@@ -1,0 +1,81 @@
+@import '@/styles/colors';
+
+.frame {
+  position: fixed;
+  background-color: $black;
+  z-index: 100;
+
+  &.mobile {
+    top: 0;
+    bottom: 0;
+
+    &.show {
+      animation: appear-from-right 500ms linear forwards;
+    }
+    &.hide {
+      animation: fade-right 500ms linear forwards;
+    }
+  }
+
+  &.desktop {
+    width: 73rem;
+    height: 44rem;
+    min-width: 73rem;
+    min-height: 44rem;
+
+    &.show {
+      animation: appear-from-below 500ms ease-out forwards;
+    }
+    &.hide {
+      animation: fade-down 1s ease-out forwards;
+    }
+  }
+}
+
+@keyframes appear-from-right {
+  from {
+    right: -100vw;
+    left: 100vw;
+  }
+  to {
+    right: 0;
+    left: 0;
+  }
+}
+
+@keyframes fade-right {
+  from {
+    right: 0;
+    left: 0;
+  }
+  to {
+    right: -100vw;
+    left: 100vw;
+  }
+}
+
+@keyframes appear-from-below {
+  from {
+    top: 200rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fade-down {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 200rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
