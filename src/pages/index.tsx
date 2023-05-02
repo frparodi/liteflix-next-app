@@ -15,6 +15,7 @@ import { APP_DESCRIPTION, APP_TITLE } from '@/constants/strings';
 
 import { Device } from '@/types/devices';
 
+import Cover from '@/components/UI/Cover';
 import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import FeaturedMovie from '@/components/FeaturedMovie';
@@ -57,6 +58,7 @@ const Home: FunctionComponent<HomeProps> = ({
             isDesktop && styles.desktop
           )}
         >
+          <Cover />
           <Background
             backdropImage={featuredMovie.backdropImage}
             posterImage={featuredMovie.posterImage}
