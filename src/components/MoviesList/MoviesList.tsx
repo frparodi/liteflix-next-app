@@ -1,8 +1,9 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import c from 'classnames';
 
 import useMedia from '@/hooks/useMedia';
-import useMyMovies from '@/hooks/useMyMovies';
+
+import { MoviesContext } from '@/context/MyMoviesContext';
 
 import { Movie } from '@/types/movies';
 
@@ -33,7 +34,7 @@ const MoviesList: FunctionComponent<MoviesListProps> = ({ popularMovies }) => {
 
   const isDesktop = useMedia(Device.DESKTOP);
 
-  const { myMovies } = useMyMovies();
+  const { myMovies } = useContext(MoviesContext);
 
   const handleChangeMoviesList = (value: 'popularMovies' | 'myMovies') => {
     setActiveMovieIndex(-1);

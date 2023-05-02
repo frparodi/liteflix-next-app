@@ -1,14 +1,13 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import c from 'classnames';
 import Head from 'next/head';
 import bebasFont from 'next/font/local';
 
 import { fetchLiteflixMovies } from '@/server/externalApis';
 
-import MyMoviesProvider from '@/context/MyMoviesProvider';
+import { MoviesContext } from '@/context/MyMoviesContext';
 
 import useMedia from '@/hooks/useMedia';
-import useMyMovies from '@/hooks/useMyMovies';
 
 import { Movie } from '@/types/movies';
 
@@ -51,10 +50,9 @@ const Home: FunctionComponent<HomeProps> = ({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { fetchMyMovies } = useMyMovies();
+  const { fetchMyMovies } = useContext(MoviesContext);
 
   const closeModal = () => {
-    fetchMyMovies();
     setIsModalOpen(false);
   };
 
@@ -74,6 +72,12 @@ const Home: FunctionComponent<HomeProps> = ({
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    if (!isModalOpen) {
+      fetchMyMovies();
+    }
+  }, [isModalOpen, fetchMyMovies]);
+
   return (
     <>
       <Head>
@@ -82,44 +86,42 @@ const Home: FunctionComponent<HomeProps> = ({
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <MyMoviesProvider>
-        <main
-          id='app-wrapper'
-          className={c(
-            styles['app-wrapper'],
-            bebas.className,
-            isDesktop && styles.desktop
-          )}
-        >
-          <Cover />
-          <Background
-            backdropImage={featuredMovie.backdropImage}
-            posterImage={featuredMovie.posterImage}
-          />
-          <Navbar showNavbar={showNavbar} openModal={openModal} />
-          <div className={styles['main-content']}>
-            <div
-              className={c(
-                styles['featured-movie-wrapper'],
-                showFeaturedMovie && styles.show
-              )}
-            >
-              <FeaturedMovie movie={featuredMovie} />
-            </div>
-            <div
-              className={c(
-                styles['movies-list-wrapper'],
-                showMoviesList && styles.show
-              )}
-            >
-              <MoviesList popularMovies={popularMovies} />
-            </div>
+      <main
+        id='app-wrapper'
+        className={c(
+          styles['app-wrapper'],
+          bebas.className,
+          isDesktop && styles.desktop
+        )}
+      >
+        <Cover />
+        <Background
+          backdropImage={featuredMovie.backdropImage}
+          posterImage={featuredMovie.posterImage}
+        />
+        <Navbar showNavbar={showNavbar} openModal={openModal} />
+        <div className={styles['main-content']}>
+          <div
+            className={c(
+              styles['featured-movie-wrapper'],
+              showFeaturedMovie && styles.show
+            )}
+          >
+            <FeaturedMovie movie={featuredMovie} />
           </div>
-          <Modal show={isModalOpen} onClose={closeModal}>
-            <AddMovieFlow closeModal={closeModal} />
-          </Modal>
-        </main>
-      </MyMoviesProvider>
+          <div
+            className={c(
+              styles['movies-list-wrapper'],
+              showMoviesList && styles.show
+            )}
+          >
+            <MoviesList popularMovies={popularMovies} />
+          </div>
+        </div>
+        <Modal show={isModalOpen} onClose={closeModal}>
+          <AddMovieFlow closeModal={closeModal} />
+        </Modal>
+      </main>
     </>
   );
 };
