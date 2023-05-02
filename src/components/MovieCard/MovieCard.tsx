@@ -51,7 +51,7 @@ const MovieCard: FunctionComponent<MovieCardProps> = ({
 
   return (
     <div className={c(styles.frame, isDesktop && styles.desktop)}>
-      <Image src={image} alt={name} fill />
+      <Image src={image} alt={name} fill priority />
       <BaseLayer
         isActive={!showStats}
         movieTitle={formattedMovieTitle}

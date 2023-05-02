@@ -1,10 +1,13 @@
 import { FunctionComponent } from 'react';
+import Image from 'next/image';
 
 import useMedia from '@/hooks/useMedia';
 
 import { Device } from '@/types/devices';
 
 import Fader from '@/components/effects/Fader';
+
+import styles from './Background.module.scss';
 
 interface BackgroundProps {
   posterImage: string;
@@ -18,21 +21,14 @@ export const Background: FunctionComponent<BackgroundProps> = ({
   const isMobile = useMedia(Device.MOBILE);
   return (
     <>
-      <div
-        style={{
-          background: `url(${
-            isMobile ? posterImage : backdropImage
-          }) no-repeat center`,
-          backgroundSize: 'cover',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          opacity: 0.6,
-          zIndex: -10,
-        }}
-      />
+      <div className={styles.background}>
+        <Image
+          src={isMobile ? posterImage : backdropImage}
+          fill
+          alt='background'
+          priority
+        />
+      </div>
       {isMobile && (
         <Fader
           height='20rem'
